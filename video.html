@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Video educativo | YO TE ACEPTO</title>
+
+    <link rel="stylesheet" href="../Estilos.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3f7ff;
+            color: #263238;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2457a7;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 12px;
+        }
+
+        h2 {
+            color: #2457a7;
+        }
+
+        .video-contenedor {
+            width: 100%;
+            margin: 25px auto;
+            text-align: center;
+        }
+
+        video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            background-color: #000;
+        }
+
+        .botones {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .boton {
+            display: inline-block;
+            background-color: #2457a7;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .boton:hover {
+            background-color: #173d79;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body class="pagina-video">
+
+    <header class="encabezado-pagina encabezado-video">
+        <a href="educacion.html" class="volver">← Anterior</a>
+        <a href="../index.html" class="volver">Inicio</a>
+        <div class="titulo-pagina">
+            <div class="logo-pequeno">Yo te acepto</div>
+            <h1>Video educativo</h1>
+            <p>Aprendamos juntos sobre la inclusión</p>
+        </div>
+    </header>
+
+    <main class="contenido-pagina">
+        <h2>Video educativo sobre la inclusión</h2>
+
+        <p>
+            A través de este video aprenderemos la importancia de respetar
+            las diferencias, evitar la discriminación y promover una
+            educación inclusiva para todos.
+        </p>
+
+        <div class="video-contenedor">
+            <video controls>
+                <source src="../Videos/video-educativo.mp4" type="video/mp4">
+                Tu navegador no puede reproducir este video.
+            </video>
+        </div>
+
+        <p>
+            Después de observar el video, continúa con el juego inclusivo
+            para poner a prueba tus conocimientos.
+        </p>
+
+        <div class="botones">
+
+            <a href="educacion.html" class="boton boton-secundario">← Página anterior</a>
+            <a href="../index.html" class="boton boton-secundario">Inicio</a>
+            <a href="juego.html" class="boton">Ir al juego inclusivo →</a>
+
+        </div>
+    </main>
+
+    <footer class="pie-pagina">
+        <p>Proyecto educativo <strong>YO TE ACEPTO</strong></p>
+    </footer>
+
+</body>
+</html>

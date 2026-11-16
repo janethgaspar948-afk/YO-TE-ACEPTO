@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Juego inclusivo | YO TE ACEPTO</title>
+
+    <link rel="stylesheet" href="../Estilos.css">
+
+    <style>
+        /* Estilos exclusivos del juego */
+        .juego-opcion {
+            display: block;
+            width: 100%;
+            margin: 12px 0;
+            padding: 14px 18px;
+            border: 2px solid #d5d5d5;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #333333;
+            text-align: left;
+            font: inherit;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .juego-opcion:hover:not(:disabled) {
+            border-color: #559b86;
+            background: #f0f8f5;
+        }
+
+        .juego-opcion:focus-visible {
+            outline: 3px solid #559b86;
+            outline-offset: 3px;
+        }
+
+        .juego-opcion:disabled {
+            cursor: default;
+            opacity: 1;
+        }
+
+        .juego-opcion.seleccionada {
+            border-color: #559b86;
+            background: #edf7f2;
+        }
+
+        .juego-opcion.correcta {
+            border-color: #27834d;
+            background: #e8f6ec;
+        }
+
+        .juego-opcion.incorrecta {
+            border-color: #bd4545;
+            background: #fff0f0;
+        }
+
+        .juego-feedback {
+            min-height: 48px;
+            margin: 18px 0;
+            line-height: 1.6;
+        }
+
+        .juego-controles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .juego-controles button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .juego-puntaje {
+            font-weight: bold;
+            margin-top: 16px;
+        }
+
+        .juego-oculto {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .juego-controles {
+                flex-direction: column;
+            }
+
+            .juego-controles .boton {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="encabezado-contenido">
+        <a href="../index.html" class="logo">YO TE ACEPTO</a>
+        <p>Aprender también puede ser divertido.</p>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="aprendizaje.html">Aprendizaje</a>
+        <a href="barreras.html">Barreras</a>
+        <a href="tipos.html">Tipos</a>
+        <a href="derechos.html">Derechos</a>
+        <a href="mitos.html">Mitos</a>
+        <a href="educacion.html">Educación</a>
+        <a href="video.html">Videos</a>
+        <a href="juego.html">Juego</a>
+        <a href="faq.html">Preguntas</a>
+        <a href="recursos.html">Recursos</a>
+    </nav>
+</header>
+
+<main class="contenido-pagina">
+
+    <section class="portada">
+        <span class="etiqueta">TEMA 8 · ACTIVIDAD INTERACTIVA</span>
+        <h1>Reto de la inclusión</h1>
+        <p class="subtitulo">
+            Pon a prueba tus conocimientos sobre el respeto,
+            la igualdad y la inclusión.
+        </p>
+    </section>
+
+    <section class="actividad">
+        <h2>¡Demuestra lo que sabes!</h2>
+
+        <p>
+            Responde cinco preguntas de mito o realidad
+            y cuatro situaciones cotidianas. Cada respuesta
+            correcta vale un punto.
+        </p>
+
+        <div class="tarjeta" id="tarjeta-juego">
+
+            <p id="progreso-juego" aria-live="polite">
+                Preparando el juego...
+            </p>
+
+            <h3 id="pregunta-juego">
+                Cargando pregunta...
+            </h3>
+
+            <div id="opciones-juego"></div>
+
+            <p
+                id="resultado-juego"
+                class="juego-feedback"
+                aria-live="polite"
+            ></p>
+
+            <p id="puntaje-juego" class="juego-puntaje">
+                Puntaje: 0 de 9
+            </p>
+
+            <div class="juego-controles" id="controles-juego">
+                <button
+                    type="button"
+                    id="volver-pregunta"
+                    class="boton"
+                    disabled
+                >
+                    ← Volver
+                </button>
+
+                <button
+                    type="button"
+                    id="continuar-pregunta"
+                    class="boton"
+                    disabled
+                >
+                    Continuar →
+                </button>
+            </div>
+
+            <button
+                type="button"
+                id="reiniciar-juego"
+                class="boton juego-oculto"
+            >
+                Volver a jugar
+            </button>
+
+        </div>
+    </section>
+
+    <section class="tarjeta">
+        <h2>Reflexiona</h2>
+
+        <p>
+            La inclusión comienza con pequeñas acciones:
+            escuchar, respetar las diferencias, ayudar sin discriminar
+            y permitir que todos participen.
+        </p>
+
+        <p>
+            ¿Qué podemos hacer en nuestra unidad educativa para
+            construir un ambiente más inclusivo?
+        </p>
+    </section>
+
+    <div class="botones-navegacion">
+        <a class="boton" href="video.html">← Volver: Videos</a>
+        <a class="boton" href="faq.html">Continuar: Preguntas →</a>
+    </div>
+
+</main>
+
+<footer>
+    <p><strong>YO TE ACEPTO</strong></p>
+    <p>Proyecto educativo · <span data-anio></span></p>
+</footer>
+
+<script>
+(function () {
+    "use strict";
+
+    const preguntas = [
+        {
+            tipo: "Mito o realidad",
+            texto: "Todas las personas con discapacidad tienen las mismas necesidades.",
+            opciones: ["Mito", "Realidad"],
+            correcta: 0,
+            explicacion: "Cada persona es diferente y puede necesitar apoyos distintos."
+        },
+        {
+            tipo: "Mito o realidad",
+            texto: "Una persona con discapacidad puede estudiar y aprender.",
+            opciones: ["Mito", "Realidad"],
+            correcta: 1,
+            explicacion: "Todas las personas tienen derecho a la educación y a aprender."
+        },
+        {
+            tipo: "Mito o realidad",
+            texto: "Ayudar significa decidir siempre por una persona con discapacidad.",
+            opciones: ["Mito", "Realidad"],
+            correcta: 0,
+            explicacion: "Es importante preguntar si necesita ayuda y respetar sus decisiones."
+        },
+        {
+            tipo: "Mito o realidad",
+            texto: "Las barreras del entorno pueden dificultar la participación.",
+            opciones: ["Mito", "Realidad"],
+            correcta: 1,
+            explicacion: "La falta de accesibilidad puede impedir que todos participen."
+        },
+        {
+            tipo: "Mito o realidad",
+            texto: "La inclusión es responsabilidad de toda la comunidad educativa.",
+            opciones: ["Mito", "Realidad"],
+            correcta: 1,
+            explicacion: "Estudiantes, docentes y familias pueden contribuir a la inclusión."
+        },
+        {
+            tipo: "Situación cotidiana",
+            texto: "Un compañero con discapacidad quiere participar en un trabajo grupal. ¿Qué haces?",
+            opciones: [
+                "Lo dejo fuera del grupo.",
+                "Escucho sus ideas y le doy la oportunidad de participar.",
+                "Hago todo el trabajo sin consultarle."
+            ],
+            correcta: 1,
+            explicacion: "Todos merecen oportunidades para participar y aportar."
+        },
+        {
+            tipo: "Situación cotidiana",
+            texto: "Observas que se burlan de una estudiante por su discapacidad. ¿Qué haces?",
+            opciones: [
+                "Me río con los demás.",
+                "La ignoro.",
+                "No apoyo las burlas y busco ayuda si es necesario."
+            ],
+            correcta: 2,
+            explicacion: "Debemos rechazar la discriminación y promover el respeto."
+        },
+        {
+            tipo: "Situación cotidiana",
+            texto: "Un compañero parece necesitar ayuda. ¿Qué haces?",
+            opciones: [
+                "Le pregunto respetuosamente si necesita ayuda.",
+                "Decido por él sin preguntarle.",
+                "Lo ignoro."
+            ],
+            correcta: 0,
+            explicacion: "Preguntar primero respeta su autonomía."
+        },
+        {
+            tipo: "Situación cotidiana",
+            texto: "Una actividad escolar tiene barreras de accesibilidad. ¿Qué propones?",
+            opciones: [
+                "Impedir la participación de algunos estudiantes.",
+                "Buscar alternativas accesibles para todos.",
+                "No hacer nada."
+            ],
+            correcta: 1,
+            explicacion: "Debemos buscar soluciones para que todos puedan participar."
+        }
+    ];
+
+    function iniciarJuego() {
+        const preguntaHTML = document.getElementById("pregunta-juego");
+        const opcionesHTML = document.getElementById("opciones-juego");
+        const progresoHTML = document.getElementById("progreso-juego");
+        const resultadoHTML = document.getElementById("resultado-juego");
+        const puntajeHTML = document.getElementById("puntaje-juego");
+        const botonContinuar = document.getElementById("continuar-pregunta");
+        const botonVolver = document.getElementById("volver-pregunta");
+        const botonReiniciar = document.getElementById("reiniciar-juego");
+        const controles = document.getElementById("controles-juego");
+
+        if (
+            !preguntaHTML || !opcionesHTML || !progresoHTML ||
+            !resultadoHTML || !puntajeHTML || !botonContinuar ||
+            !botonVolver || !botonReiniciar || !controles
+        ) {
+            return;
+        }
+
+        let actual = 0;
+        let respuestas = Array(preguntas.length).fill(null);
+        let finalizado = false;
+
+        function calcularPuntaje() {
+            return respuestas.reduce(function (total, respuesta, indice) {
+                return total + (
+                    respuesta === preguntas[indice].correcta ? 1 : 0
+                );
+            }, 0);
+        }
+
+        function mostrarPregunta() {
+            const item = preguntas[actual];
+            finalizado = false;
+
+            progresoHTML.textContent =
+                "Pregunta " + (actual + 1) + " de " + preguntas.length +
+                " · " + item.tipo;
+
+            preguntaHTML.textContent = item.texto;
+            opcionesHTML.replaceChildren();
+            resultadoHTML.textContent = "";
+            puntajeHTML.textContent =
+                "Puntaje: " + calcularPuntaje() + " de 9";
+
+            item.opciones.forEach(function (texto, indice) {
+                const boton = document.createElement("button");
+                boton.type = "button";
+                boton.className = "juego-opcion";
+                boton.textContent = texto;
+                boton.setAttribute("aria-pressed", "false");
+
+                if (respuestas[actual] !== null) {
+                    boton.disabled = true;
+
+                    if (indice === item.correcta) {
+                        boton.classList.add("correcta");
+                    }
+
+                    if (indice === respuestas[actual]) {
+                        boton.setAttribute("aria-pressed", "true");
+
+                        if (indice !== item.correcta) {
+                            boton.classList.add("incorrecta");
+                        }
+                    }
+                }
+
+                boton.addEventListener("click", function () {
+                    if (respuestas[actual] !== null || finalizado) {
+                        return;
+                    }
+
+                    respuestas[actual] = indice;
+
+                    Array.from(opcionesHTML.children).forEach(
+                        function (otro) {
+                            otro.disabled = true;
+                        }
+                    );
+
+                    if (indice === item.correcta) {
+                        boton.classList.add("correcta");
+                        resultadoHTML.textContent =
+                            "¡Correcto! " + item.explicacion;
+                    } else {
+                        boton.classList.add("incorrecta");
+                        opcionesHTML.children[item.correcta]
+                            .classList.add("correcta");
+
+                        resultadoHTML.textContent =
+                            "Esta vez no. " + item.explicacion;
+                    }
+
+                    boton.setAttribute("aria-pressed", "true");
+                    puntajeHTML.textContent =
+                        "Puntaje: " + calcularPuntaje() + " de 9";
+
+                    botonContinuar.disabled = false;
+                });
+
+                opcionesHTML.appendChild(boton);
+            });
+
+            botonVolver.disabled = actual === 0;
+            botonContinuar.disabled = respuestas[actual] === null;
+            botonContinuar.textContent =
+                actual === preguntas.length - 1
+                    ? "Ver resultado →"
+                    : "Continuar →";
+
+            botonContinuar.classList.remove("juego-oculto");
+            botonVolver.classList.remove("juego-oculto");
+            controles.classList.remove("juego-oculto");
+            botonReiniciar.classList.add("juego-oculto");
+        }
+
+        function mostrarFinal() {
+            const puntos = calcularPuntaje();
+            finalizado = true;
+
+            progresoHTML.textContent = "¡Juego completado!";
+            preguntaHTML.textContent = "Tu resultado final";
+            opcionesHTML.replaceChildren();
+
+            let mensaje;
+
+            if (puntos === 9) {
+                mensaje = "¡Excelente! Tienes una gran comprensión de la inclusión.";
+            } else if (puntos >= 6) {
+                mensaje = "¡Muy bien! Continúa aprendiendo y practicando la inclusión.";
+            } else {
+                mensaje = "Gracias por participar. Repasa lo aprendido e inténtalo nuevamente.";
+            }
+
+            resultadoHTML.textContent =
+                "Obtuviste " + puntos + " de 9 puntos. " + mensaje;
+
+            puntajeHTML.textContent = "Puntaje final: " + puntos + " de 9";
+            controles.classList.add("juego-oculto");
+            botonReiniciar.classList.remove("juego-oculto");
+        }
+
+        botonContinuar.addEventListener("click", function () {
+            if (finalizado || respuestas[actual] === null) return;
+
+            if (actual < preguntas.length - 1) {
+                actual++;
+                mostrarPregunta();
+            } else {
+                mostrarFinal();
+            }
+        });
+
+        botonVolver.addEventListener("click", function () {
+            if (actual > 0 && !finalizado) {
+                actual--;
+                mostrarPregunta();
+            }
+        });
+
+        botonReiniciar.addEventListener("click", function () {
+            actual = 0;
+            respuestas = Array(preguntas.length).fill(null);
+            mostrarPregunta();
+        });
+
+        mostrarPregunta();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", iniciarJuego);
+    } else {
+        iniciarJuego();
+    }
+})();
+</script>
+
+</body>
+</html>
